@@ -9,12 +9,12 @@ export class SidebarService {
   API_LINK = 'http://localhost:3000/client';
 
   menu:any[]=[{
-    title:'dashboard',
+    title:'Dashboard',
     icon:'nav-icon fas fa-tachometer-alt',
     submenu:[
       {title:'Users', url:'users'},
       {title:'Clients', url:'clients'},
-      {title:'Products', url:'products'},
+      {title:'Produits', url:'produits'},
       {title:'Stock', url:'stock'},
     ]
   }];
