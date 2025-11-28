@@ -9,6 +9,7 @@ import { PagesComponent } from './pages.component';
 import { StocksComponent } from './stocks/stocks.component';
 import { ClientsComponent } from './clients/clients.component';
 import { SharedModule } from '../shared/shared.module';
+import { DataTablesModule } from 'angular-datatables';
 
 
 
@@ -28,12 +29,13 @@ import { SharedModule } from '../shared/shared.module';
     ProduitsComponent,
     PagesComponent,
     StocksComponent,
-    ClientsComponent
+    ClientsComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
     RouterModule,
+    DataTablesModule
   ]
 })
 export class PagesModule { }
