@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterFormInterface } from './interfaces/register-form.interface';
 import { LoginFormInterface } from './interfaces/login-form.interface';
 import { tap } from 'rxjs';
+import { ChangePasswordInterface } from './interfaces/change-password.interface';
 
 // http://localhost:3000
 //const URL = environment.urlServer;
@@ -14,16 +15,23 @@ const URL = 'http://localhost:3000';
 export class AuthService {
 constructor(private http: HttpClient) { }
 
-  register(userData: RegisterFormInterface){
+  register(userData: Partial<RegisterFormInterface>){
     return this.http.post(`${URL}/user`, userData, {responseType: 'text'});
   }
 
   login(loginData: Partial<LoginFormInterface>){
     return this.http.post(`${URL}/user/login`, loginData)
     .pipe(tap((res:any)=>{
-      //console.log(res['access_token']);
+      // console.log(res['username']);
+      // console.log(res['userId']);
       localStorage.setItem('token', res['access_token']);
+      //localStorage.setItem('userId', res['userId']);
+      //localStorage.setItem('username', res['username']);
     }));
+  }
+
+  get token():string{
+    return localStorage.getItem('token');
   }
 
   getAllUsers(){
@@ -43,5 +51,21 @@ constructor(private http: HttpClient) { }
     console.log(cl);
     
     return this.http.get(`${URL}/client`,credentials);
+  }
+
+  deleteUser(id: number){
+    let headers = new HttpHeaders({
+      'token': this.token
+    });
+
+    return this.http.delete(`${URL}/user/${id}`);
+  }
+
+  changePassword(id: number, changePass: ChangePasswordInterface){
+   let headers = new HttpHeaders({
+      'token': this.token
+    });
+
+    return this.http.patch(`${URL}/user/${id}`, changePass);
   }
 }

@@ -13,8 +13,8 @@ export class LoginComponent implements OnInit{
 
   public loginForm = this.fb.group({
     //email: ['', [Validators.required, Validators.email]],
-    username: [localStorage.getItem('username') || '', [Validators.required]],
-    //username: ['', [Validators.required]],
+    //username: [localStorage.getItem('username') || '', [Validators.required]],
+    username: ['', [Validators.required]],
     password: ['', [Validators.required]],
     //remember: [false]
   });

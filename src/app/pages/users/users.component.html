@@ -5,7 +5,10 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Liste Des Users</h3>
+                <h3 class="card-title">Liste Des Users</h3><br><br>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajouterUser">
+                  <i class="fas fa-user-plus"></i>Ajouter
+                </button>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -15,6 +18,7 @@
                     <th>#</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Change Password</th>
                     <th>Role</th>
                     <th>Action</th>
                   </tr>
@@ -24,10 +28,11 @@
                     <td>{{i+1}}</td>
                     <td>{{users.username}}</td>
                     <td>{{users.email}}</td>
+                    <td><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#changePass"><i class="fas fa-key" (click)="changePass(users.id)">Password</i></button></td>
                     <td>{{users.role}}</td>
                     <td>
                       <button class="btn btn-warning btn-xs mr-2"><i class="fas fa-pencil-alt"></i></button>
-                      <button class="btn btn-danger btn-xs"><i class="fas fa-trash-alt"></i></button>
+                      <button class="btn btn-danger btn-xs" (click)="deleteUser(users.id)"><i class="fas fa-trash-alt"></i></button>
                     </td>
                   </tr>
                   </tbody>
@@ -45,3 +50,107 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+
+        <!-- Modal Ajouter User -->
+        <div class="modal fade" id="ajouterUser">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Ajouter User</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form (ngSubmit)="createUser()" [formGroup]="registerForm" autocomplete="off">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Username" formControlName="username">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-user"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Email" formControlName="email">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-8">
+                      <div class="col text-danger">
+                        <p *ngIf="campoInvalid('username')">Username est obligatoire</p>
+                        <p *ngIf="campoInvalid('email')">Email est obligatoire</p>
+                        <p *ngIf="campoInvalid('password')">Email est obligatoire</p>
+                      </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
+      <!-- Modal Change Password -->
+        <div class="modal fade" id="changePass">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Change Password</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="changePassword" autocomplete="off">
+                  <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Old Password" formControlName="oldPassword">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="New Password" formControlName="newPassword">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-8">
+                      
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save Password</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->

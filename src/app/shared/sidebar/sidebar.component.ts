@@ -9,6 +9,7 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 })
 export class SidebarComponent implements OnInit {
 
+  profile = localStorage.getItem('username');
   menuItems:any[];
 
   constructor(
@@ -16,7 +17,7 @@ export class SidebarComponent implements OnInit {
     private router: Router
   ) { 
     this.menuItems = sidebarService.menu;
-    console.log(this.menuItems);
+    //console.log(this.menuItems);
     
   }
 
@@ -26,6 +27,8 @@ export class SidebarComponent implements OnInit {
 
   logout(){
     localStorage.removeItem('token');
+    //localStorage.removeItem('userId');
+    //localStorage.removeItem('username');
     this.router.navigateByUrl('/login');
   }
 
