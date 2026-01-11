@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { RegisterFormInterface } from './interfaces/register-form.interface';
 import { LoginFormInterface } from './interfaces/login-form.interface';
 import { tap } from 'rxjs';
-import { ChangePasswordInterface } from './interfaces/change-password.interface';
+import { UpdateUserPasswordInterface } from './interfaces/update-user-password.interface';
 
 // http://localhost:3000
 //const URL = environment.urlServer;
@@ -54,18 +54,26 @@ constructor(private http: HttpClient) { }
   }
 
   deleteUser(id: number){
-    let headers = new HttpHeaders({
-      'token': this.token
-    });
+    // let headers = new HttpHeaders({
+    //   'token': this.token
+    // });
 
     return this.http.delete(`${URL}/user/${id}`);
   }
 
-  changePassword(id: number, changePass: ChangePasswordInterface){
-   let headers = new HttpHeaders({
-      'token': this.token
-    });
+  // changePassword(id: number, changePass: ChangePasswordInterface){
+  //  let headers = new HttpHeaders({
+  //     'token': this.token
+  //   });
 
-    return this.http.patch(`${URL}/user/${id}`, changePass);
+  //   return this.http.patch(`${URL}/user/${id}`, changePass);
+  // }
+
+  changePassword(id: any, updatePasswordUserInterface){
+  //  let headers = new HttpHeaders({
+  //     'token': this.token
+  //   });
+
+    return this.http.patch(`${URL}/user/${id}`, updatePasswordUserInterface, {responseType: 'text'});
   }
 }

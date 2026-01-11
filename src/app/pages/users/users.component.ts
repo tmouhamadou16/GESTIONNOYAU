@@ -25,6 +25,7 @@ export class UsersComponent implements OnInit, OnDestroy{
   users: UserModel[]=[];
 
   formSubmitted = false;
+  idUser;
     Roles: any = ['admin', 'user'];
   
     public registerForm = this.fb.group({
@@ -87,19 +88,27 @@ export class UsersComponent implements OnInit, OnDestroy{
       })
   }
 
-  changePass(id: number){
-    let idUser = id;
-    console.log(idUser);
-    $('#changePass').modal("toggle");
-    $('#changePass').modal("show");
-  //  document.getElementById('changePass'),{
-  //     toggle: true,
-  //     show: true
-  //   };
+  changePass(id: any){
+    this.idUser = id;
+    //console.log(idUser);
+    //localStorage.setItem("userId",idUser);
   }
 
   passwordChange(){
-
+    this.authService.changePassword(this.idUser, this.changePassword.value).subscribe((res)=>{
+      //console.log(res);
+            Swal.fire({
+            icon: 'success',
+            title: 'Exit',
+            text: 'Password modifié avec succés !!!',
+            confirmButtonText: 'Ok'
+          }).then((result)=>{
+            location.reload();
+          });
+      }, (err)=>{
+        const errorPass = JSON.parse(err.error);
+        Swal.fire('Error', errorPass.message, 'error');
+      })
   }
 
   deleteUser(id: number){

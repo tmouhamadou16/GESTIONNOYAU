@@ -28,7 +28,7 @@
                     <td>{{i+1}}</td>
                     <td>{{users.username}}</td>
                     <td>{{users.email}}</td>
-                    <td><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#changePass"><i class="fas fa-key" (click)="changePass(users.id)">Password</i></button></td>
+                    <td><button type="button" class="btn btn-primary btn-xs mr-2" data-toggle="modal" data-target="#changePass"><i class="fas fa-key" (click)="changePass(users.id)">Password</i></button></td>
                     <td>{{users.role}}</td>
                     <td>
                       <button class="btn btn-warning btn-xs mr-2"><i class="fas fa-pencil-alt"></i></button>
@@ -120,7 +120,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form [formGroup]="changePassword" autocomplete="off">
+                <form (ngSubmit)="passwordChange()" [formGroup]="changePassword" autocomplete="off">
                   <div class="input-group mb-3">
                     <input type="password" class="form-control" placeholder="Old Password" formControlName="oldPassword">
                     <div class="input-group-append">
