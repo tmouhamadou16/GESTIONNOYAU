@@ -11,6 +11,7 @@ import { ClientsComponent } from './clients/clients.component';
 import { SharedModule } from '../shared/shared.module';
 import { DataTablesModule } from 'angular-datatables';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MesuresComponent } from './mesures/mesures.component';
 
 
 
@@ -22,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProduitsComponent,
     PagesComponent,
     StocksComponent,
-    ClientsComponent
+    ClientsComponent,
+    MesuresComponent
   ],
   exports: [
     DashboardComponent,

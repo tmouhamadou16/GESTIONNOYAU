@@ -1,33 +1,267 @@
-<div class="card">
-    <div class="card-header">
-      <h3 class="card-title">Clients</h3>
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Liste Des Clients</h3><br><br>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajouterClient">
+                  <i class="fas fa-user-plus"></i>Ajouter
+                </button>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Prenom</th>
+                    <th>Nom</th>
+                    <th>Telephone</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let cls of clients; let i= index">
+                    <td>{{i+1}}</td>
+                    <td>{{cls.firstname}}</td>
+                    <td>{{cls.lastname}}</td>
+                    <td>{{cls.telephone}}</td>
+                    <td>
+                      <button class="btn btn-warning btn-xs mr-2" data-toggle="modal" data-target="#updateClient" (click)="getClientById(cls.id)"><i class="fas fa-pencil-alt"></i></button>
+                      <!-- <button class="btn btn-warning btn-xs mr-2" data-toggle="modal" data-target="#updateClient" (click)="getMesureById(cls.id)"><i class="fas fa-pencil-alt"></i></button> -->
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mesureClient" (click)="getMesureClientById(cls.id)">
+                        <i class="fas fa-user-plus"></i>Mesure
+                      </button>
+                      <button class="btn btn-danger btn-xs" (click)="deleteClient(cls.id)"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                  </tr>
+                  </tbody>
+                  <!-- <tfoot>
+                  <tr>
+                    <th>Rendering engine</th>
+                    <th>Browser</th>
+                    <th>Platform(s)</th>
+                    <th>Engine version</th>
+                    <th>CSS grade</th>
+                  </tr>
+                  </tfoot> -->
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
 
-      <div class="card-tools">
-        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-          <i class="fas fa-minus"></i></button>
-        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-          <i class="fas fa-times"></i></button>
+            <!-- Modal Ajouter User -->
+        <div class="modal fade" id="ajouterClient">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Ajouter Client</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form (ngSubmit)="addClient()" [formGroup]="clientForm" autocomplete="off">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Firstname" formControlName="firstname">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-user"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Lastname" formControlName="lastname">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="number" class="form-control" placeholder="Telephone" formControlName="telephone">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-8">
+                      <div class="col text-danger">
+                        <p *ngIf="campoInvalid('firstname')">Prenom est obligatoire</p>
+                        <p *ngIf="campoInvalid('lastname')">Nom est obligatoire</p>
+                        <p *ngIf="campoInvalid('telephone')">Telephone est obligatoire</p>
+                      </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
       </div>
-    </div>
-    <div class="card-body">
-    <table class="table">
-        <thead>
-            <th>id</th>
-            <th>Name</th>
-            <th>Telephone</th>
-        </thead>
-        <tbody *ngFor="let cl of clients">
-            <tr>
-                <td>{{cl.id}}</td>
-                <td>{{cl.firstname}} {{cl.lastname}}</td>
-                <td>{{cl.telephone}}</td>
-            </tr>
-        </tbody>
-    </table>
-    </div>
-    <!-- /.card-body -->
-    <div class="card-footer">
-      Footer
-    </div>
-    <!-- /.card-footer-->
-  </div>
+      <!-- /.modal -->
+
+      <!-- Modal Update Client -->
+        <div class="modal fade" id="updateClient">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Edit Client</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form (ngSubmit)="updateClient()" [formGroup]="clientForm" autocomplete="off">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Firstname" formControlName="firstname">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-user"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Lastname" formControlName="lastname">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="number" class="form-control" placeholder="Telephone" formControlName="telephone">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-8">
+                      <div class="col text-danger">
+                        <p *ngIf="campoInvalid('firstname')">Prenom est obligatoire</p>
+                        <p *ngIf="campoInvalid('lastname')">Nom est obligatoire</p>
+                        <p *ngIf="campoInvalid('telephone')">Telephone est obligatoire</p>
+                      </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+    <!-- Modal Mesure Client -->
+        <div class="modal fade" id="mesureClient">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Mesure Client</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="card-body">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                <app-mesures></app-mesures>
+                <!-- <tbody *ngFor="let mes of mesureClient; let i= index">
+                    <tr>
+                    <td>
+                        <strong>C :</strong> {{mes.coup}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>E :</strong> {{mes.epaule}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>M :</strong> {{mes.mache}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>TM :</strong> {{mes.tourM}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>P :</strong> {{mes.poitrine}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>T :</strong> {{mes.taille}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>LB :</strong> {{mes.longueurB}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>LGB :</strong> {{mes.longueurGB}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>C :</strong> {{mes.ceinture}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>H :</strong> {{mes.hanche}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>F :</strong> {{mes.fesse}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>C :</strong> {{mes.cuisse}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>G :</strong> {{mes.genou}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>LP :</strong> {{mes.pantalonL}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>B :</strong> {{mes.bas}}
+                    </td>
+                    </tr>
+                    </tbody> -->
+                  </table>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+      </div>

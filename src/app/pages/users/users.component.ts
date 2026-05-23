@@ -26,12 +26,13 @@ export class UsersComponent implements OnInit, OnDestroy{
 
   formSubmitted = false;
   idUser;
-    Roles: any = ['admin', 'user'];
+  Roles: any = ['admin', 'user'];
   
     public registerForm = this.fb.group({
       username:['', [Validators.required]],
       email:['', [Validators.required, Validators.email]],
       password:['', [Validators.required]],
+      //role:['', [Validators.required]],
     });
 
     public changePassword = this.fb.group({
@@ -67,6 +68,41 @@ export class UsersComponent implements OnInit, OnDestroy{
     });
   }
 
+  getUserById(id: number){
+    this.authService.getUserById(id).subscribe((res)=>{
+      //console.log(res);
+      this.registerForm.setValue({
+        username: res['username'],
+        email: res['email'],
+        password: ''
+      });
+      localStorage.setItem("userId",res['id']);
+    });
+  }
+
+  updateUser(){
+    //console.log(this.registerForm.value);
+    this.authService.updateUser(localStorage.getItem('userId'), this.registerForm.value).subscribe((res)=>{
+      //console.log(res);
+      Swal.fire({
+        icon: 'success',
+        title: 'Exit',
+        text: 'Utilisateur modifié avec succès',
+        confirmButtonText: 'OK'
+      }).then((result)=>{
+
+        if (result) {
+          localStorage.removeItem('userId');
+          location.reload();
+        }
+      });
+    }, (err)=>{
+      //const errorEdit = JSON.parse(err.error);
+      Swal.fire('Error', err.error.message, 'error');
+    })
+  }
+
+  
   createUser(){
     this.formSubmitted = true;
     if (this.registerForm.invalid) {
@@ -134,6 +170,9 @@ export class UsersComponent implements OnInit, OnDestroy{
             location.reload();
           }
         })
+      }, (err)=>{
+        //const errorPass = JSON.parse(err.error);
+        Swal.fire('Error', err.error.message, 'error');
       });
       }
     });
@@ -145,12 +184,12 @@ export class UsersComponent implements OnInit, OnDestroy{
   }
 
   
-    campoInvalid(comp: string): boolean{
-      if (this.registerForm.get(comp).invalid && this.formSubmitted) {
-        return true;
-      }else{
-        return false;
-      }
+  campoInvalid(comp: string): boolean{
+    if (this.registerForm.get(comp).invalid && this.formSubmitted) {
+      return true;
+    }else{
+      return false;
     }
+  }
 
 }

@@ -1,0 +1,138 @@
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <!-- <div class="card-header">
+                <h3 class="card-title">Liste Des Mesures</h3><br><br>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajouterMesure">
+                  <i class="fas fa-user-plus"></i>Ajouter
+                </button>
+              </div> -->
+              <!-- /.card-header -->
+              <div class="">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                  <div class="card" *ngFor="let mes of mesures; let i= index">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick exemple text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item"><strong>C :</strong> {{mes.coup}}</li>
+                      <li class="list-group-item"><strong>E :</strong> {{mes.epaule}}</li>
+                      <li class="list-group-item"><strong>M :</strong> {{mes.mache}}</li>
+                      <li class="list-group-item"><strong>TM :</strong> {{mes.tourM}}</li>
+                      <li class="list-group-item"><strong>P :</strong> {{mes.poitrine}}</li>
+                      <li class="list-group-item"><strong>T :</strong> {{mes.taille}}</li>
+                      <li class="list-group-item"><strong>LB :</strong> {{mes.longueurB}}</li>
+                      <li class="list-group-item"><strong>LGB :</strong> {{mes.longueurGB}}</li>
+                      <li class="list-group-item"><strong>C :</strong> {{mes.ceinture}}</li>
+                      <li class="list-group-item"><strong>H :</strong> {{mes.hanche}}</li>
+                      <li class="list-group-item"><strong>F :</strong> {{mes.fesse}}</li>
+                      <li class="list-group-item"><strong>C :</strong> {{mes.cuisse}}</li>
+                      <li class="list-group-item"><strong>G :</strong> {{mes.genou}}</li>
+                      <li class="list-group-item"><strong>LP :</strong> {{mes.pantalonL}}</li>
+                      <li class="list-group-item"><strong>B :</strong> {{mes.bas}}</li>
+                      <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                    <div class="card-body">
+                      <!-- <a href="#" class="card-link">Card link</a>
+                      <a href="#" class="card-link">Another link</a> -->
+                      <button class="btn btn-warning btn-xs mr-2" data-toggle="modal" data-target="#updateMesure" (click)="getMesureById(mes.id)"><i class="fas fa-pencil-alt"></i></button>
+                      <button class="btn btn-danger btn-xs" (click)="deleteMesure(mes.id)"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                  </div>
+                  <!-- <tbody *ngFor="let mes of mesures; let i= index">
+                    <tr>
+                    <td>
+                        <strong>#</strong> {{i+1}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Coup :</strong> {{mes.coup}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Epaule :</strong> {{mes.epaule}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Mache :</strong> {{mes.mache}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Tour De Mache :</strong> {{mes.tourM}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Poitrine :</strong> {{mes.poitrine}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Taille :</strong> {{mes.taille}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Longueur Boubou :</strong> {{mes.longueurB}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Longueur Grand Boubou :</strong> {{mes.longueurGB}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Ceinture :</strong> {{mes.ceinture}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Hanche :</strong> {{mes.hanche}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Fesse :</strong> {{mes.fesse}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Cuisse :</strong> {{mes.cuisse}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Genou :</strong> {{mes.genou}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Longueur Pantalon :</strong> {{mes.pantalonL}}
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <strong>Bas :</strong> {{mes.bas}}
+                    </td>
+                    </tr>
+                    <td>
+                      <button class="btn btn-warning btn-xs mr-2" data-toggle="modal" data-target="#updateMesure" (click)="getMesureById(mes.id)"><i class="fas fa-pencil-alt"></i></button>
+                      <button class="btn btn-danger btn-xs" (click)="deleteMesure(mes.id)"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                  </tbody> -->
+                </table>
+
+              </div>
+              <!-- /.card-body -->
+            <!-- </div> -->
+            <!-- /.card -->

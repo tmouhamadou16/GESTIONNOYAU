@@ -4,6 +4,7 @@ import { RegisterFormInterface } from './interfaces/register-form.interface';
 import { LoginFormInterface } from './interfaces/login-form.interface';
 import { tap } from 'rxjs';
 import { UpdateUserPasswordInterface } from './interfaces/update-user-password.interface';
+import { UpdateUserFormInterface } from './interfaces/update-user-form.interface';
 
 // http://localhost:3000
 //const URL = environment.urlServer;
@@ -35,29 +36,11 @@ constructor(private http: HttpClient) { }
   }
 
   getAllUsers(){
-    // let headers = new HttpHeaders({
-    //   'token': localStorage.getItem('token')
-    // });
-    //console.log({headers});
-    
     return this.http.get(`${URL}/user`);
   }
 
-  getAllClient(credentials){
-    // let headers = new HttpHeaders({
-    //   'token': localStorage.getItem('token')
-    // });
-    const cl = this.http.get(`${URL}/client`,credentials);
-    console.log(cl);
-    
-    return this.http.get(`${URL}/client`,credentials);
-  }
 
   deleteUser(id: number){
-    // let headers = new HttpHeaders({
-    //   'token': this.token
-    // });
-
     return this.http.delete(`${URL}/user/${id}`);
   }
 
@@ -70,10 +53,14 @@ constructor(private http: HttpClient) { }
   // }
 
   changePassword(id: any, updatePasswordUserInterface){
-  //  let headers = new HttpHeaders({
-  //     'token': this.token
-  //   });
-
     return this.http.patch(`${URL}/user/${id}`, updatePasswordUserInterface, {responseType: 'text'});
+  }
+
+  getUserById(id: number){
+    return this.http.get(`${URL}/user/${id}`);
+  }
+
+  updateUser(id: string, updateUserData: Partial<UpdateUserFormInterface>){
+    return this.http.put(`${URL}/user/updateUser/${id}`, updateUserData, {responseType: 'text'});
   }
 }

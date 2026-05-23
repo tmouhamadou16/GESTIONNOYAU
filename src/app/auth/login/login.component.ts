@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.getAllClients();
+    
   }
 
 
@@ -45,10 +45,5 @@ export class LoginComponent implements OnInit{
     });
   }
 
-  getAllClients(){
-    this.authService.getAllClient(this.loginForm.value).subscribe(res=>{
-      console.log(res);   
-    });
-  }
 
 }

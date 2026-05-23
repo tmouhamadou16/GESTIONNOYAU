@@ -7,6 +7,7 @@ import { ClientsComponent } from './clients/clients.component';
 import { ProduitsComponent } from './produits/produits.component';
 import { StocksComponent } from './stocks/stocks.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { MesuresComponent } from './mesures/mesures.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ children:[
     {path:'clients', component:ClientsComponent, data:{title:'Clients'}},
     {path:'produits', component:ProduitsComponent, data:{title:'Produits'}},
     {path:'stock', component:StocksComponent, data:{title:'Stock'}},
+    {path:'mesures', component:MesuresComponent, data:{title:'Mesures'}},
   ]},
 ];
 

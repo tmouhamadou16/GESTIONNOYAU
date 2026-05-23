@@ -9,6 +9,7 @@ import { NopageFoundComponent } from './nopage-found/nopage-found.component';
 import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 import { DataTablesModule } from 'angular-datatables';
+import { LoginInterceptorProvider } from './pages/users/interceptors/login.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { DataTablesModule } from 'angular-datatables';
     AuthModule,
     //DataTablesModule
   ],
-  providers: [],
+  providers: [
+    LoginInterceptorProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
